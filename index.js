@@ -2,7 +2,7 @@
  *  Primary file for the API
  */
 
-// domande: 
+// Domande: 
 // 1) è possibile visualizzare l'oggetto request sulla pagina web o sul terminale??
 
 // DEPENDENCIES
@@ -11,7 +11,9 @@ const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 
 // DEFINE WHAT THE SERVER DOES
-var server = http.createServer((req, res) => {
+  /* everytime someone hits localhost:3000, the callback function with (req, res) as parameters gets called,
+  and everytime req and res are different objects, with lots of different information.*/
+const server = http.createServer((req, res) => {
 
   // GET THE URL AND PARSE IT
   var parsedUrl = url.parse(req.url, true);
@@ -41,31 +43,22 @@ var server = http.createServer((req, res) => {
   // "  'req.on('data', ... " is for when the request emits the event 'data', so when the http request has a payload.
   // if there's no payload, then at least the 'end' event described below will get called anyway.
   // this means that as this data is streaming in, every time is streamed in a little piece, the request object 
-  // emits the data event and decoded with the utf-8 format.
+  // emits the data event, decoded with the utf-8 format the data sent in the payload and puts t in the buffer string.
 
   // this one below is the handler of the 'end' event
   req.on('end', () => {
     buffer += decoder.end();
 
-    //
     // SEND THE RESPONSE ( this is what will be displayed in the html)
     res.end("Hello World\n"); 
-    //res.end(JSON.stringify(parsedUrl));
 
     // LOG THE REQUEST PATH 
     console.log("Request received with this payload: " + buffer);
-    // console.log("Request is received on path: " + trimmedPath + " with this method: " + method + " with these queries string parameters:" , queryStringObject, "\n");
-    //console.log(req);
+
   });
 
   
 });
-//other comments on http.createServer
-//server is a server object
-/* 
- *everytime someone hits localhost:3000, the callback function with (req, res) as parameters gets called,
- * and everytime req and res are different objects, with lots of different information.
- */
 
 
 // START THE (WEB?) SERVER, AND HAVE IT LISTEN ON PORT 3000
