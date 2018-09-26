@@ -3,7 +3,7 @@
  */
 
 // Domande: 
-// 1) è possibile visualizzare l'oggetto request sulla pagina web o sul terminale??
+// 1) It is possible to visualize the request object in the web page or in the terminal ??
 
 // DEPENDENCIES
 const http = require('http');
